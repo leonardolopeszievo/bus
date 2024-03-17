@@ -62,7 +62,7 @@
         </table>
 
         <div class="mt-5 rounded-5 overflow-hidden p-0 " style="width: 900px;border: solid 10px grey;border-radius: 10px;height: 450px;">
-          <img src="pt1.jpeg" class="img-fluid w-100 " s style="height:450px;object-fit: cover;" alt="">
+          <img src="pt1.jpeg" class="img-fluid w-100 " id="img-painel" style="height:450px;object-fit: cover;" alt="">
           
         </div>
       </div>
@@ -89,13 +89,13 @@
     const table_body_bus = document.getElementById("table-body-bus")
 
     const all_buses = [
-      { bus: 3957, passengers: [10, 48], air_conditioning: false, wheelchair: true, distance: 1, time: "17m" },
-      { bus: 3967, passengers: [9, 50], air_conditioning: true, wheelchair: false, distance: 3, time: "17m" },
-      { bus: 3960, passengers: [21, 22], air_conditioning: false, wheelchair: true, distance: 5, time: "17m" },
-      { bus: 3962, passengers: [12, 25], air_conditioning: true, wheelchair: false, distance: 7, time: "17m" },
-      { bus: 3211, passengers: [27, 30], air_conditioning: true, wheelchair: false, distance: 10, time: "17m" },
-      { bus: 3210, passengers: [16, 16], air_conditioning: true, wheelchair: true, distance: 14, time: "17m" },
-      { bus: 3962, passengers: [11, 40], air_conditioning: false, wheelchair: false, distance: 57, time: "17m" },
+      {id:1,img: "pt1.jpeg", bus: 3957, passengers: [10, 48], air_conditioning: false, wheelchair: true, distance: 1, time: "17m" },
+      { id:2,img: "photo2.jpeg",  bus: 3967, passengers: [9, 50], air_conditioning: true, wheelchair: false, distance: 3, time: "17m" },
+      { id:3,img: "pt1.jpeg", bus: 3960, passengers: [21, 22], air_conditioning: false, wheelchair: true, distance: 5, time: "17m" },
+      { id:4,img: "photo2.jpeg", bus: 3962, passengers: [12, 25], air_conditioning: true, wheelchair: false, distance: 7, time: "17m" },
+      { id:5,img: "pt1.jpeg", bus: 3211, passengers: [27, 30], air_conditioning: true, wheelchair: false, distance: 10, time: "17m" },
+      { id:6,img: "photo2.jpeg", bus: 3210, passengers: [16, 16], air_conditioning: true, wheelchair: true, distance: 14, time: "17m" },
+      { id:7,img: "pt1.jpeg", bus: 3962, passengers: [11, 40], air_conditioning: false, wheelchair: false, distance: 57, time: "17m" },
     ]
 
 
@@ -116,7 +116,7 @@
 
     all_buses.forEach((b, idx) => {
       table_body_bus.insertAdjacentHTML('beforeend', `
-            <tr class='bus ${idx === 0 ? 'active first_bus_element' : ''}' >
+            <tr data-id="${b.id}" class='bus ${idx === 0 ? 'active first_bus_element' : ''}' >
                 <td>${b.bus}</td>
                 <td>${b.passengers[0] + " / " + b.passengers[1]}</td>
                 <td>${b.air_conditioning ? '<i class="bi bi-fan text-primary"></i>' : '<i class="bi bi-fan text-danger"></i>'}</td>
@@ -138,6 +138,14 @@
 
       if (next_element) {
         next_element.classList.add('active')
+
+        console.log()
+
+
+        document.querySelector("#img-painel").src = all_buses.find((b) => b.id === +next_element.getAttribute("data-id")).img
+
+
+
       } else {
         first_bus_element.classList.add('active')
       }
